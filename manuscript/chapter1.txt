@@ -65,10 +65,12 @@ C++'dakinin hemen hemen aynılarıdır. Örnekte çeşitli değişken tanımlama
 
 Çıktısı:
 
+{lang="text"}
     Emre bölme işlemi yaptı: 16/3=5.33333
 
 Dikkat ettiyseniz String değişken için %s, int için %d, float için %f kullanılmış. Bu kurala dikkat etmeniz gerekiyor.
 
+{lang="text"}
     String => %s
     int => %d
     float, double => %f
@@ -88,6 +90,7 @@ Ayrıca ondalıklı haneyi de %.2f demek suretiyle belirleyebiliyorsunuz. Böyle
 
 Bir array tanımlamanın kalıbı C++ ve Java için yukarıdaki gibidir. Yani aşağıdaki kalıbı kullanmaktayız:
 
+{lang="text"}
     tür[] isim = new tür[boyut];
 
 Sonrasında diziye değer atamak isterseniz
@@ -130,6 +133,7 @@ Kod örneği:
 
 Çıktısı:
 
+{lang="text"}
     Emre
     Caner
     Cengiz
@@ -145,6 +149,7 @@ Kod Örneği:
 
 Çıktısı:
 
+{lang="text"}
     Emre - 10
     Caner - 11
     Cengiz - 12
@@ -163,6 +168,7 @@ Kod Örneği:
 
 Çıktısı:
 
+{lang="text"}
     1 - Emre
     2 - Caner
     3 - Cengiz
@@ -192,6 +198,7 @@ Kod Örneği:
 
 Çıktısı:
 
+{lang="text"}
     0-3
     1-7
     2-11
@@ -202,7 +209,7 @@ Kod Örneği:
 ## Metodlar (Fonksiyonlar)
 
 
-Yazının başında belirttiğim gibi şimdilik mümkün olduğunca Object Oriented kavramından kaçmaya çalışacağımız için metodları da static metod olarak tanımlayacağım. Buradaki static'in anlamı C++'daki static'ten farklı. Java'da bir statik metod, içinde bulunduğu Class'tan yeni bir nesne türetmeden (new ClassIsmı() demeden) kendisine ulaşılabilen metoddur. main de bir statik metoddur.
+Yazının başında belirttiğim gibi şimdilik mümkün olduğunca Object Oriented kavramından kaçmaya çalışacağımız için metodları da static metod olarak tanımlayacağım. Buradaki static'in anlamı C++'daki static'ten farklı. Java'da bir statik metod, içinde bulunduğu Class'tan yeni bir nesne türetmeden (new ClassIsmi() demeden) kendisine ulaşılabilen metoddur. main de bir statik metoddur.
 
 
 Ayrıca metodları hangi sırayla (main'in üstüne/altına) yazacağınız önemli değildir. Yeter ki class { } parantezlerinin içerisinde olsun.
@@ -228,6 +235,7 @@ Ayrıca metodları hangi sırayla (main'in üstüne/altına) yazacağınız öne
 
 Çıktısı:
 
+{lang="text"}
     3 + 7 = 10
 
 ### Örnek 2
@@ -254,5 +262,6 @@ Ayrıca metodları hangi sırayla (main'in üstüne/altına) yazacağınız öne
 
 Çıktısı:
 
+{lang="text"}
     5! = 120
     9/5 = 1.80

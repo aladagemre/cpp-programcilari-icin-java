@@ -1,6 +1,6 @@
 # Giriş
 
-Merhaba, bu yazımda sizlere çeşitli Java kod örnekleri vermeye çalışacağım. Java Object-Oriented bir dildir ve kodunuzu yapısına uydurmanızı bekler. Dolayısıyla öğrenmesi biraz zaman alabilir. İlk başta sözdizimine(syntax) alıştırmak için Object Oriented özelliklerini mümkün olduğunca kullanmadan örnekler göstermeye çalışacağım. Kod parçalarını bilgisayarınızda yazıp çalıştırmayı denerseniz bilgiler daha kalıcı olacaktır.
+Merhaba, bu kitabımda prosedürel olarak C++ dilini kullanmış öğrencilere sizlere öncelikle prosedürel olarak Java'yı çeşitli kod örnekleriyle tanıtacağım, C++ ile karşılaştıracağım. Ardından Object Oriented prensiplerinden bahsedeceğim. Java Object-Oriented bir dildir ve kodunuzu yapısına uydurmanızı bekler. Dolayısıyla öğrenmesi biraz zaman alabilir. İlk başta sözdizimine(syntax) alıştırmak için Object Oriented özelliklerini mümkün olduğunca kullanmadan örnekler göstermeye çalışacağım. Kod parçalarını bilgisayarınızda yazıp çalıştırmayı denerseniz bilgiler daha kalıcı olacaktır.
 
 Ardından da abartılı hikayelerle Object Oriented mantığını anlatmaya çalışacağım. Eğlenceli olacağını tahmin ediyorum.
 
