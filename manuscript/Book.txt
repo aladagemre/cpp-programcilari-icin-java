@@ -1,0 +1,2 @@
+giris.txt
+chapter1.txt
