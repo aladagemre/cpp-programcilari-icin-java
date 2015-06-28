@@ -1,4 +1,4 @@
-# Object Oriented Mimari
+# Object Oriented Mimariye Giriş
 
 Şimdiye kadar yazdığımız tüm programlar C/C++'taki gibi, Object Oriented yapısını kullanmadan, fonksiyon/değişken kullanarak yazılan programlardı. Bu tür programlarda çok sayıda fonksiyon ve değişken olmakta, birbiriyle alakalı olmayan fonksiyonlar aynı dosyada yer almaktaydı. Bu da bir kargaşaya sebep olmakta.
 
@@ -60,7 +60,13 @@ Emre, fabrikada ilk radyonun üretildiği haberini alır almaz arkadaşlarına d
 {lang="java"}
     IlkelRadyo emreninRadyosu;
 
-Yani, IlkelRadyo türünde, emreninRadyosu adında bir radyo olacak. Yakında göreceksiniz. Ama ortada gösterebileceği bir radyo nesnesi yok henüz. Sadece lafta kalmış halde. "Sallıyor bu, sen kim IlkelRadyo sahibi olmak kim" demesinler diye koşarak fabrikanın yolunu tutar ve kendisine bir radyo ürettirir Emre:
+Yani, "IlkelRadyo türünde, emreninRadyosu adında bir radyo olacak. Yakında göreceksiniz" bahsi geçiyor.
+
+
+## Nesne (Object) Nedir?
+
+
+Ama ortada gösterebileceği bir radyo nesnesi yok henüz. Sadece lafta kalmış halde. "Sallıyor bu, sen kim IlkelRadyo sahibi olmak kim" demesinler diye koşarak fabrikanın yolunu tutar ve kendisine bir radyo ürettirir Emre:
 
 {lang="java"}
     emreninRadyosu = new IlkelRadyo();
@@ -81,16 +87,15 @@ Meraklı Emre kasayı açar ve devrelerle oynar. Frekansı değiştirir, 100.0 y
 Şimdi buraya kadar olan hikayenin tüm kodunu görelim:
 
 IlkelRadyo.java
+
 {lang="java"}
     public class IlkelRadyo {
         public int ses = 0;
         public double frekans = 87.5;
 
-
         public void sesiniArttir(){
                 ses++;
         }
-
 
         public void sesiniAzalt(){
                 ses--;

@@ -1,0 +1,54 @@
+# Girdi/Çıktı
+
+## Scanner ile kullanıcıdan veri alma (cin)
+
+Scanner, Java'nın içerisinde bulunan hazır bir Class. Biz de (siyah ekrandan) kullanıcıdan veri almak için  bu classı kullanacağız. Örnek bir programla başlayalım:
+
+{lang="java"}
+    import java.utils.Scanner;
+
+    public class ScannerOrnegi {
+        public static void main(String[] args){
+            String isim;
+            int yas;
+            double boy;
+            Scanner myScanner = new Scanner(System.in);
+
+
+            System.out.println("Lutfen isim girin:");
+            isim = myScanner.next();
+            System.out.println("Lutfen yas  girin:");
+            yas = myScanner.nextInt();
+            System.out.println("Lutfen boy (metre) girin:");
+            boy = myScanner.nextDouble();
+
+
+            System.out.println("Isim: " + isim + ", Yas: " + yas + ", Boy: " + boy);
+        }
+    }
+
+
+Çalışma sonucu:
+
+{lang="text"}
+    Lütfen isim girin:
+    Can
+    Lütfen yas girin:
+    17
+    Lütfen boy (metre) girin:
+    1.75
+
+Örnek çıktı:
+
+{lang="text"}
+    Isim: Can, Yas:17, Boy:1.75
+
+Öncelikle class'ın dışına (üstüne) bir import ifadesi yerleştirmeniz gerekiyor. Ardından yeni bir Scanner nesnesi oluşturuyorsunuz. Constructor parametresi olarak da System.in yazıyorsunuz. Bu klavye anlamına geliyor. İleride dosyadan okumak isterseniz dosyayla alakalı parametreler vereceksiniz.
+
+
+Sonra oluşturduğumuz myScanner nesnesinin next, nextInt ve nextDouble metodlarını kullanıyoruz. myScanner. yazıp beklerseniz Netbeans otomatik tamamlama yapacak, kullanabileceğiniz metodları size gösterecektir.
+
+
+isim = myScanner.next() dediğinizde klavyeden bir şeyler yazıp entera basmanızı bekler. Bastığınızda tüm satırı alır ve isim'e yazar.
+yas = myScanner.nextInt() dediğimizde klavyeden bir sayı yazıp entera basmamızı bekler. Bastığımızda ilk sayıyı alır ve yas'a yazar.
+boy = myScanner.nextDouble() dediğimize klavyeden ondalıklı bir sayı yazıp entera basmamızı bekler. Basınca da ilk ondalıklı sayıyı alır ve boy'a yazar.

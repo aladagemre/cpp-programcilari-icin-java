@@ -97,6 +97,7 @@ Kullanıcının kullanabileceği şeyler ise sadece public olan metodlar:
 
 O da ne? Bu yeni radyo modelinin kumandası bile var. Üzerindeki sayı tuşları sayesinde ses ve frekansı tuşlara basarak yazabiliyoruz. Örn: 1-0-6-.-0-0 => 106.00 frekansı açılıyor.
 
+{lang="text"}
     public void setSes(int yeniSeviye) => Kumandada 9'a basıldıysa ses seviyesini 9 yapıyor. Tabii 0,10 aralığında olmak şartıyla.
     public int getSes() => Ses seviyesini göster tuşu. Buna basınca göstergede "9" yazıyor.
     public void setFrekans(double yeniFrekans) => Kumandadaki sayıları kullanarak yeni bir frekansa geçmemize izin veriyor. Örneği yukarıda mevcut (106.00).
@@ -197,55 +198,3 @@ Peki ismi doğar doğmaz versek olmaz mı? Olur tabii ki. Onun için de ayrı bi
     }
 
 Buradaki main'de Insan bebek = new Insan("Emre") dedik. Java bakıyor, Insan constructor metoduna "Emre" diye string parametre gelmiş. O halde koyu renkle yazdığım, string parametre alan constructor'u çalıştırıyor. Böylelikle bebeğin ismi doğar doğmaz Emre konmuş oluyor.
-
-
-## Scanner ile kullanıcıdan veri alma (cin)
-
-Scanner, Java'nın içerisinde bulunan hazır bir Class. Biz de (siyah ekrandan) kullanıcıdan veri almak için  bu classı kullanacağız. Örnek bir programla başlayalım:
-
-    import java.utils.Scanner;
-
-    public class ScannerOrnegi {
-        public static void main(String[] args){
-            String isim;
-            int yas;
-            double boy;
-            Scanner myScanner = new Scanner(System.in);
-
-
-            System.out.println("Lutfen isim girin:");
-            isim = myScanner.next();
-            System.out.println("Lutfen yas  girin:");
-            yas = myScanner.nextInt();
-            System.out.println("Lutfen boy (metre) girin:");
-            boy = myScanner.nextDouble();
-
-
-            System.out.println("Isim: " + isim + ", Yas: " + yas + ", Boy: " + boy);
-        }
-    }
-
-
-Çalışma sonucu:
-
-{lang="text"}
-    Lütfen isim girin:
-    Can
-    Lütfen yas girin:
-    17
-    Lütfen boy (metre) girin:
-    1.75
-
-Örnek çıktı:
-{lang="text"}
-    Isim: Can, Yas:17, Boy:1.75
-
-Öncelikle class'ın dışına (üstüne) bir import ifadesi yerleştirmeniz gerekiyor. Ardından yeni bir Scanner nesnesi oluşturuyorsunuz. Constructor parametresi olarak da System.in yazıyorsunuz. Bu klavye anlamına geliyor. İleride dosyadan okumak isterseniz dosyayla alakalı parametreler vereceksiniz.
-
-
-Sonra oluşturduğumuz myScanner nesnesinin next, nextInt ve nextDouble metodlarını kullanıyoruz. myScanner. yazıp beklerseniz Netbeans otomatik tamamlama yapacak, kullanabileceğiniz metodları size gösterecektir.
-
-
-isim = myScanner.next() dediğinizde klavyeden bir şeyler yazıp entera basmanızı bekler. Bastığınızda tüm satırı alır ve isim'e yazar.
-yas = myScanner.nextInt() dediğimizde klavyeden bir sayı yazıp entera basmamızı bekler. Bastığımızda ilk sayıyı alır ve yas'a yazar.
-boy = myScanner.nextDouble() dediğimize klavyeden ondalıklı bir sayı yazıp entera basmamızı bekler. Basınca da ilk ondalıklı sayıyı alır ve boy'a yazar.
