@@ -1,0 +1,127 @@
+# Object Oriented Mimari
+
+Şimdiye kadar yazdığımız tüm programlar C/C++'taki gibi, Object Oriented yapısını kullanmadan, fonksiyon/değişken kullanarak yazılan programlardı. Bu tür programlarda çok sayıda fonksiyon ve değişken olmakta, birbiriyle alakalı olmayan fonksiyonlar aynı dosyada yer almaktaydı. Bu da bir kargaşaya sebep olmakta.
+
+
+Class yapısını kullanarak yazdığımız kodlarda ise ilgili fonksiyon ve değişkenler bir araya (bir class içerisine) toplanmakta, daha derli toplu bir görünüm ortaya çıkmakta. Mesela bir müşterinin bankadan para çekme fonksiyonu ile güvenlik görevlisinin bankayı kapatma fonksiyonunun ard arda gelmesinin bir manası yok.
+
+
+## Class Nedir?
+
+Class'ı bir ev gibi düşünebiliriz. Birçok alakalı fonksiyon bir araya gelip aynı evde yaşamakta, birbirleriyle kolaylıkle iletişim kurmakta, aynı eşyaları (değişkenler) kullanmaktalar. Bununla birlikte yabancılar evdeki eşyaları ancak belirli izinler dahilinde kullanabilir, yahut ev halkından birisine rica etmelidirler o eşyayı kullanabilmek için.
+
+
+Başka bir benzetme daha yapalım. Class bir tasarımdır. Radyo'yu icat ettiğinizi, patent başvurusunda bulunacağınızı varsayalım. Yapmanız gereken icat ettiğiniz radyonun nasıl bir cihaz olduğunu (işlevlerini ve sahip olduğu özelliklerini) bir belgeye yazarak bunu patent enstitüsüne teslim etmektir. Onlar da bu büyük icadı hemen kabul edip kayıtlarına geçirecektir. İşte bu tasarım belgesi Class'ınız oldu. Siz bu tasarım kurallarına uygun bir Radyo üretirseniz, bu ürettiğiniz, elle tutulan ve Class'ın özelliklerini taşıyan şey Radyo nesnesi (OBJECT) olur. Yani Class soyut bir konsept'tir, Object ise somut bir örnektir.
+
+
+Radyo çok güzel bir alettir => Class tasarımını kastediyorum, soyut. Belli bir radyo yok, tüm radyolar söz konusu.
+Benim radyom çok güzel bir radyo => Elimdeki radyo örneğini / object'ini kastediyorum.
+
+
+İcadınız tüm ülkede yankılandı. Gazeteler bu yeni buluşu yazmaya başladı ve iş adamları doğal olarak yeni fabrikalar açarak bu radyo denilen bu muhteşem aleti üretmek istediler. Yapacakları şey ne? Bu tasarım belgesine (Class'a) bakarak orada yazan özelliklere uygun bir ürün (radyo nesnesi) üretmek. Bu üretim işlemini de Java'daki new keywordü gerçekleştiriyor. Bir Class'ın yapısı şu şekildedir:
+
+    public class ClassIsmi {
+        degisken1;
+        degisken2;
+        ...
+
+        fonksiyon1
+        fonksiyon2
+        fonskiyon3.
+        ....
+
+    }
+
+
+Hemen örnek bir Class tanımlayalım: IlkelRadyo.java
+
+    public class IlkelRadyo {
+        public int ses = 0;
+        public double frekans = 87.5;
+
+        public void sesiniArttir(){
+                ses++;
+        }
+
+        public void sesiniAzalt(){
+                ses--;
+        }
+    }
+
+
+Bu ilkel radyo tasarımına (classına) bakacak olursak, ses ve frekans adında iki tane değişkeni var. Ayrıca sesini azaltıp arttırmaya yarayan iki tane de tuşu (fonksiyonu) var. Bu değişken ve fonksiyonlar bu Class'a ait olduğu için onlara değişken yerine attribute (özellik) ve fonksiyon yerine method (metod) diyeceğiz. Yani radyonun ses ve frekans özelliği, sesiniArttir ve sesiniAzalt metodları var.
+
+
+Özellikleri tanımlarken onlara öntanımlı fabrika ayarlarını da verdik. Yani yeni bir radyo üretildiği anda sesi 0, frekansı 87.5 olarak müşteriye ulaşacak. Müşteri bunu aldığı zaman tuşlarını kullanarak sesini açıp azaltabilir ancak radyomuz çok ilkel olup frekans değiştirmeye izin vermediği için sadece 87.5 frekansını dinlemeye mahkumdur. Bu müşteri Emre ise durum farklı tabii ki.
+
+
+Emre, fabrikada ilk radyonun üretildiği haberini alır almaz arkadaşlarına der ki: "benim emreninRadyosu adında bir IlkelRadyo'm olacak, çok yakında göreceksiniz!". Bunu da aşağıdaki gibi yapar:
+
+{lang="java"}
+    IlkelRadyo emreninRadyosu;
+
+Yani, IlkelRadyo türünde, emreninRadyosu adında bir radyo olacak. Yakında göreceksiniz. Ama ortada gösterebileceği bir radyo nesnesi yok henüz. Sadece lafta kalmış halde. "Sallıyor bu, sen kim IlkelRadyo sahibi olmak kim" demesinler diye koşarak fabrikanın yolunu tutar ve kendisine bir radyo ürettirir Emre:
+
+{lang="java"}
+    emreninRadyosu = new IlkelRadyo();
+
+Artık arkadaşlarına elleriyle tutup gösterebileceği bir emreninRadyosu vardır. IlkelRadyo Class ismidir, emreninRadyosu ise bir IlkelRadyo nesnesidir. Hemen arkadaşlarının yanına gider ve havasını atarak radyonun sesini açma tuşuna basar:
+
+{lang="java"}
+    emreninRadyosu.sesiniArttir();
+
+Radyo çalmaya başlamıştır. Ama kısık seslidir (1). Birkaç kere daha aynı işlemi yapınca herkes duyabilir hale gelir. O sırada patavatsız bir arkadaşı "ne yani hep aynı frekansı mı dinleyeceğiz? Frekans değiştirme tuşu bile yok. Ne biçim alet bu ya?!" der. Emre de bunu gururuna yediremez ve "siz misiniz frekans için tuş koymayan, ben de açarım radyonun kasasını, devrelerle oynar istediğim frekansa getiririm radyoyu." der. Bu ilkel radyonun özelliklerinin (ses, frekans) başında public yazdığı için isteyen herkes radyonun kasasını açıp devrelere müdahale edebilmektedir.
+
+
+Meraklı Emre kasayı açar ve devrelerle oynar. Frekansı değiştirir, 100.0 yapar ve biraz yabancı müzik dinletir etrafındakilere:
+
+{lang="java"}
+    emreninRadyosu.frekans = 100.0;
+
+Şimdi buraya kadar olan hikayenin tüm kodunu görelim:
+
+IlkelRadyo.java
+{lang="java"}
+    public class IlkelRadyo {
+        public int ses = 0;
+        public double frekans = 87.5;
+
+
+        public void sesiniArttir(){
+                ses++;
+        }
+
+
+        public void sesiniAzalt(){
+                ses--;
+        }
+    }
+
+IlkelRadyoHacking.java
+
+{lang="java"}
+    public class IlkelRadyoHacking {
+        public static void main(String[] args){
+            IlkelRadyo emreninRadyosu;
+            emreninRadyosu = new IlkelRadyo();
+
+            emreninRadyosu.sesiniArttir();
+            emreninRadyosu.sesiniArttir();
+            emreninRadyosu.sesiniArttir();
+            emreninRadyosu.sesiniArttir();
+
+            emreninRadyosu.frekans = 100.0;
+        }
+    }
+
+IlkelRadyo.java ve IlkelRadyoHacking.java aynı klasördeler. Bu sebeple içerisinde main bulunan IlkelRadyoHacking, IlkelRadyo Class'ını kullanabilecek. main metodu çalıştığında yeni bir radyo üretilecek ve 4 kere sesi arttırılacak. Ardından radyonun özelliklerine -kasasını açarak- müdahele edilecek (frekansı 100 yapılacak). Çünkü public double frequency demişiz. Metodların hangi sırada yazdığının bir önemi yok. Yeter ki hepsi Class süslü parantezlerinin içerisinde olsun.
+
+Emre biraz da komşulara dinletelim diyerek Radyonun sesini daha da açmak ister. Bakar ki tuşa tek tek basmak zor oluyor, hazır kasa açıkken elini daldırıverir ve sesini arttırır da arttırır. Sonunda doğal olarak radyonun yanmasına sebep olur. Panikle fabrikaya geri döner ve "ben bunu daha yeni aldım, garanti kapsamında yenisini istiyorum." der. Ancak görevli radyonun kasasının açıldığını, sesi devreden değiştirmeye kalktığı için radyonun bozulduğunu anlar ve bunun garanti kapsamı dışında kalacağını söyler. Emre sinirlenerek "ama kasasını açamazsınız yazmıyordu, public int ses gördüğüm için açtım elimle ayarladım. Böyle bir güvenlik önlemini sizin almanız gerekiyordu!" der. Görevli buna hak verir ve IlkelRadyo tasarımını yapan kişiye durumu haber verir. Birtakım güvenlik önlemleri alınması gerekmektedir:
+
+
+1. Hiçkimse Radyonun kasasını açıp ses/frekans değiştirememeli.
+2. Hiçkimse Radyonun sesi/frekansı neymiş bakayım deyip kasayı açıp bakamamalı.
+3. Değiştirme işlemi için tuşlar olmalı.
+4. Ses/frekans öğrenme işlemleri için göstergeler olmalı.
+5. Frekans 87.5 ile 108.0 arasında olmalı.
+6. Ses 0 ile 10 arasında olmalı.

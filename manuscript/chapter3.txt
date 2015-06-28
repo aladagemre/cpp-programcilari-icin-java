@@ -1,0 +1,251 @@
+# Encapsulation
+
+## Dünya'dan Örnekler
+
+### Setter
+
+Radyo örneğine devam etmeden önce güvenlik önlemlerine güzel bir örnek vermek istiyorum: Tır şoförlüğü. Eğer siz tırınızı public olarak tanımladıysanız, bu tırınızı sokağa koyup kapaklarını açıp, "isteyen istediğini yüklesin dert değil ben yine taşırım." demek oluyor. Tırınıza bilginiz dışında bomba bile yükleyebilirler. Yolda patlarsa da ölür gidersiniz. Şu durumda sokaktan geçen herkesin tırınıza mal yüklemesini istemediğinize göre, private ve protected'ı öğrenmenin vakti gelmiştir.
+
+Eğer siz tırınızı private olarak tanımlarsanız, tırınıza mal yüklenmek istendiğinde bu mal sizin denetiminizden geçer. Bakarsınız, neymiş ne değilmiş. Taşımaya uygun mu, yasal mı, tehlikeli mi diye. Ona göre yükler veya yüklemeyi reddedersiniz. Doğrusu da budur.
+
+Ama "ben şoför müyüm denetçi miyim kardeşim bunla uğraşamam. Hem nakliyat şirketimizdeki denetçiler ne güne duruyor, onlar yapsın. Onlara güvenmeyeceğim de kime güveneceğim?" diyorsanız, tırınızı protected yaparsınız. Böylelikle aynı şirkette (klasörde-pakette) bulunan tüm çalışan türleri (classlar) tırınıza yükleme yapabilir. Onlara güvenirsiniz.
+
+### Getter
+
+Yukarıda anlatılanlar hep bir şeyi değiştirmeye yönelik (set metodu) işlerdi. Peki ya bilgi edinmeye (get metodu) gelince ne olacak? Eğer tırıma yüklenen şeylerin kontrol altında olmasını istiyorum diyor ve tırınızı private yapıp kapağını kilitliyorsanız, aynı zamanda başkalarının tırınızın içerisinde ne olduğunu görmesini de engelliyorsunuz demektir. Bu durumda bilmesi gerekene bilmesi gerektiği kadarını söylemek için get metodu yazmanız gerekmekte.
+
+
+Diğer bir örnek de tanımadığınız birisine "Annenin kızlık soyadı ne?" diye sorduğunuzda "hooop noluyoruz?" der. Çünkü bu onun özelidir ve kime cevap verip kime cevap vermeyeceğini kendi filtresinden geçirir. Mesela banka hesabı açarken paşa paşa söyler. Böyle bir denetim mekanizması varsa bu kişi bilgilerini private yapmış demektir. Ancak bir kişi nüfus cüzdanını yakasına asıp da geziyorsa, böylelikle herkes tüm bilgilerini (anne kızlık soyadı dahil) öğrenebiliyorsa, bu kişi public takılmakta, büyük bir risk almaktadır.
+
+
+### Radyo'dan Devam
+
+IlkelRadyo'nun tasarım sahibi hemen nasıl güvenlik önlemleri alabilirim diye araştırır ve Java'daki encapsulation konusunu okur. Yazdığına göre;
+
+1. Başkaları tarafından müdahale edilmesini / kullanılmasını istemediğimiz özellik ve metodları public yerine private olarak tanımlamalıymışız.
+2. Yapılacak değiştirme/bilgi edinme işlemleri için get/set gibi metodlar (radyo düğme ve göstergeleri) hazırlamalı, bunları kullanıcıya sunmalıymışız. Böylelikle kasayı açmaya ihtiyaç duymasınlar.
+3. get/set metodlarını yazarken veri akışını filtrelemeliymişiz. Müşteri gidip de sesini 100 yapmak istiyorum diyemesin. 10'dan sonra ses arttırma tuşuna ne kadar basarsa bassın, ses artmasın.
+
+
+Tasarımcı, bu bilgiler ışığında yeni bir radyo tasarlamaya başlar. Bu artık ilkel bir radyo olmayacaktır:
+
+Radyo.java
+
+    public class Radyo {
+        private int ses = 0;
+        private double frekans = 87.5;
+
+        public void sesiniArttir(){
+            if (ses < 10)
+                ses++;
+        }
+
+        public void sesiniAzalt(){
+            if (ses > 0)  /* ses 0 ise, azaltamasın tuşa ne kadar basarsa bassın */
+                ses--;
+        }
+
+        public void frekansArttir(){
+            if (frekans <= 107.95)
+                 frekans += 0.05;
+            else
+                frekans = 87.5;  // Eğer 108'e dayandıysak en başa dönsün.
+        }
+
+        public void frekansAzalt(){
+            if (frekans >= 87.55)
+                frekans -= 0.05;
+            else
+                frekans = 108.00; // Eğer 87.5'e dayandıysak en sona dönsün.
+        }
+
+       /* GET VE SETLER */
+        public void setSes(int yeniSeviye){
+            if (yeniSeviye >= 0 && yeniSeviye <=10)
+                ses = yeniSeviye;
+        }
+
+        public int getSes(){
+            return ses;
+        }
+
+        public void setFrekans(double yeniFrekans){
+                if (yeniFrekans >= 87.5 && yeniFrekans <=108.0)
+                        frekans = yeniFrekans;
+        }
+
+        public double getFrekans(){
+                return frekans;
+        }
+    }
+
+
+Tasarımcımız güvenlik önlemlerini aldı gibi. Şimdi kodu inceleyelim.
+
+    private int ses
+    private double frekans
+
+demekle kasayı açmak suretiyle bu özelliklerin değiştirilmesini engelliyoruz. Yani adeta çelik kasa yapıyoruz.
+
+Kullanıcının kullanabileceği şeyler ise sadece public olan metodlar:
+
+    public void sesiniArttir() => Sesini bir arttırma tuşu
+    public void sesiniAzalt() => Sesini bir azaltma tuşu
+    public void frekansArttir() => Frekansı 0.05 arttırma tuşu
+    public void frekansAzalt() => frekansı 0.05 azaltma tuşu
+
+
+O da ne? Bu yeni radyo modelinin kumandası bile var. Üzerindeki sayı tuşları sayesinde ses ve frekansı tuşlara basarak yazabiliyoruz. Örn: 1-0-6-.-0-0 => 106.00 frekansı açılıyor.
+
+    public void setSes(int yeniSeviye) => Kumandada 9'a basıldıysa ses seviyesini 9 yapıyor. Tabii 0,10 aralığında olmak şartıyla.
+    public int getSes() => Ses seviyesini göster tuşu. Buna basınca göstergede "9" yazıyor.
+    public void setFrekans(double yeniFrekans) => Kumandadaki sayıları kullanarak yeni bir frekansa geçmemize izin veriyor. Örneği yukarıda mevcut (106.00).
+    public double getFrekans() => Hangi frekanstayım ben? sorusuna cevap veren tuş. Bu tuşa basınca göstergede 106.00 yazıyor.
+
+
+Hikayeye dönelim hemen. Tasarımcı yeni tasarımını fabrikalara ulaştırır ve artık yeni modelden üretilmektedir. Emre'ye de haber verirler, yeni modelden alabilirsin diye. Emre de gider, bozulan IlkelRadyo nesnesini iade edip yeni bir Radyo nesnesi alır. Hemen gelir arkadaşlarına gösterir:
+
+RadyoHacking.java (Radyo.java ile aynı klasörde)
+
+    public class RadyoHacking {
+        public static void main(String[] args){
+            Radyo emreninRadyosu;
+            emreninRadyosu = new Radyo();
+
+            emreninRadyosu.sesiniArttir(); // ses 1 olur.
+            emreninRadyosu.setFrekans(97.2); // Metro FM açılır.
+            emreninRadyosu.setSes(10); // ses 10 olur.
+            emreninRadyosu.sesiniArttir(); // ses 10'da kalır, değişmez.
+            emreninRadyosu.setSes(100); // ses 10'da kalır, değişmez.
+            emreninRadyosu.setFrekans(100000.00); // frekans 97.2'de kalır, değişmez.
+            emreninRadyosu.frekansArttir(); // frekans 97.25 olur.
+
+            System.out.println("Ses=" + emreninRadyosu.getSes());
+            System.out.println("Frekans=" + emreninRadyosu.getFrekans());
+
+            // Şu çalışmaz, çünkü private: System.out.println("Ses="+emreninRadyosu.ses);
+            // Şu çalışmaz, çünkü private: System.out.println("Ses="+emreninRadyosu.frekans);
+        }
+    }
+
+
+Örnekte görebileceğiniz üzere, Emre radyonun sesini 1 arttırabilmekte, kumandayı kullanarak frekansını 97.2, sesini 10 yapabilmekte. Ancak sesi 100, frekansı 100000.00 yapmaya kalkınca başarılı olamamaktadır. Nasıl ki televizyonda 999. kanalı göster dediğinzde böyle bir kanal yoksa televisyon tepki vermez, bu da onun gibi. Bir denetim mekanizması var. Farklı bir dosyadan Radyo classını kullanmaya kalktığınızda private olan özelliklere müdahale edemez, public olan set/get metodlarını kullanmak zorunda kalırsınız.
+
+
+Basit programlar için her şeyi public yapsanız da bir sorun yok. Ancak program büyüdükçe yanlışlıkla geçersiz değerler (-45 yaşında insan gibi) girmemek için bu denetim mekanizmalarını kullanmanız gerekebilir.
+Class'ları ve main metodlarını public yapmamızın sebebi ise kullanılabilir olmalarını istiyor olmamız. Özellikleri private yaptığınız gibi metodları da private yapabilirsiniz, ancak bu metodları sadece class içinde çağırabilirsiniz. Ülkenin iç işleri private, dış işleri public gibi düşünebilirsiniz bunu.
+
+
+## this ifadesi
+
+Yukarıdaki setter metodlarında ses=yeniSeviye gibi atamalar yaptık. ses özellik, yeniSeviye ise metoda gelen parametre durumunda. Peki ya ikisinin ismi de aynı olsaydı?
+
+    public void setSes(int ses){
+        ses = ses;
+    }
+
+Böyle bir durumda Java afallayacaktı. ses=ses çok tuhaf bir ifade çünkü. Hangi (parametre ses mi, class variable ses mi) değişkeni hangisine atayacağını bilemiyor. Böyle bir durumun üstesinden gelebilmek için, kargaşadan kurtulmak için this ifadesini kullanıyoruz.
+
+    public void setSes(int ses){
+        this.ses = ses;
+    }
+
+this, object'e ait anlamına geliyor. Yani, nesnemin sesi (this.ses), bana parametrede söylenen ses olacak.
+
+## Constructor
+
+Constructor, bir object oluştururken yapılacak ilk işlerin tarif edildiği metoddur. Bir insan doğarken göbek bağı kesilir, ağlar, yaşı 0'dır. Bunlar, constructor'un işi olabilir mesela. Bunu da Insan sınıfıyla açıklayalım:
+
+
+    public class Insan {
+        private int yas;
+        private String isim;
+
+        public Insan(){
+            yas = 0;
+        }
+        public static void main(String[] args){
+            Insan bebek = new Insan();
+            bebek.isim = "Emre";
+            System.out.println("Isım: " +bebek.isim + " yas: " + bebek.yas);
+        }
+    }
+
+public Insan() diye, Class ile aynı isimde bir metod yazdım. İşte bu constructor oluyor. Şimdiye kadar new ClassIsmi(); dediğimiz zamanlar "ya bu fonksiyon gibi çağrılıyor sanki" demiş olabilirsiniz. Evet, bu bir fonksiyon, Constructor fonksiyonu. Yeni nesne oluşturulurken bu Constructor metodu çağrılıyor. Insan bebek = new Insan(); satırında mesela, Insan türünden bir nesne oluştur, oluşturur oluşturmaz da public Insan() constructor'unu çağır diyoruz. Böyle bir metod yoksa hiçbir ön-işlem yapmaz. Sorun yok.
+
+Merak edeceğiniz diğer bir husus, main'i bu sefer class'In içerisine yazmış olmamız. Evet, main için farklı bir dosya açmadım. Çünkü şöyle bir kolaylık getiriyor: yas ve isim özelliklerini private tanımlamış olmamıza rağmen main metodu Insan classının içerisinde olduğu için private main'e işlemiyor. bebek.isim = "Emre"; diyebiliyoruz rahatlıkla.
+
+Peki ismi doğar doğmaz versek olmaz mı? Olur tabii ki. Onun için de ayrı bir constructor yazacağız. Java, parametrelere bakarak hangi constructor'u kastettiğimizi anlayacak.
+
+    public class Insan {
+        private int yas;
+        private String isim;
+
+        public Insan(){
+            yas = 0;
+        }
+
+        public Insan(String verilenAd){
+            yas = 0;
+            isim = verilenAd;
+        }
+
+        public static void main(String[] args){
+            Insan bebek = new Insan("Emre");
+            System.out.println("Isım: " +bebek.isim + " yas: " + bebek.yas);
+        }
+    }
+
+Buradaki main'de Insan bebek = new Insan("Emre") dedik. Java bakıyor, Insan constructor metoduna "Emre" diye string parametre gelmiş. O halde koyu renkle yazdığım, string parametre alan constructor'u çalıştırıyor. Böylelikle bebeğin ismi doğar doğmaz Emre konmuş oluyor.
+
+
+## Scanner ile kullanıcıdan veri alma (cin)
+
+Scanner, Java'nın içerisinde bulunan hazır bir Class. Biz de (siyah ekrandan) kullanıcıdan veri almak için  bu classı kullanacağız. Örnek bir programla başlayalım:
+
+    import java.utils.Scanner;
+
+    public class ScannerOrnegi {
+        public static void main(String[] args){
+            String isim;
+            int yas;
+            double boy;
+            Scanner myScanner = new Scanner(System.in);
+
+
+            System.out.println("Lutfen isim girin:");
+            isim = myScanner.next();
+            System.out.println("Lutfen yas  girin:");
+            yas = myScanner.nextInt();
+            System.out.println("Lutfen boy (metre) girin:");
+            boy = myScanner.nextDouble();
+
+
+            System.out.println("Isim: " + isim + ", Yas: " + yas + ", Boy: " + boy);
+        }
+    }
+
+
+Çalışma sonucu:
+
+{lang="text"}
+    Lütfen isim girin:
+    Can
+    Lütfen yas girin:
+    17
+    Lütfen boy (metre) girin:
+    1.75
+
+Örnek çıktı:
+{lang="text"}
+    Isim: Can, Yas:17, Boy:1.75
+
+Öncelikle class'ın dışına (üstüne) bir import ifadesi yerleştirmeniz gerekiyor. Ardından yeni bir Scanner nesnesi oluşturuyorsunuz. Constructor parametresi olarak da System.in yazıyorsunuz. Bu klavye anlamına geliyor. İleride dosyadan okumak isterseniz dosyayla alakalı parametreler vereceksiniz.
+
+
+Sonra oluşturduğumuz myScanner nesnesinin next, nextInt ve nextDouble metodlarını kullanıyoruz. myScanner. yazıp beklerseniz Netbeans otomatik tamamlama yapacak, kullanabileceğiniz metodları size gösterecektir.
+
+
+isim = myScanner.next() dediğinizde klavyeden bir şeyler yazıp entera basmanızı bekler. Bastığınızda tüm satırı alır ve isim'e yazar.
+yas = myScanner.nextInt() dediğimizde klavyeden bir sayı yazıp entera basmamızı bekler. Bastığımızda ilk sayıyı alır ve yas'a yazar.
+boy = myScanner.nextDouble() dediğimize klavyeden ondalıklı bir sayı yazıp entera basmamızı bekler. Basınca da ilk ondalıklı sayıyı alır ve boy'a yazar.
