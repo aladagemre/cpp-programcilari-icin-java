@@ -1,0 +1,15 @@
+# Giriş
+
+Merhaba, bu yazımda sizlere çeşitli Java kod örnekleri vermeye çalışacağım. Java Object-Oriented bir dildir ve kodunuzu yapısına uydurmanızı bekler. Dolayısıyla öğrenmesi biraz zaman alabilir. İlk başta sözdizimine(syntax) alıştırmak için Object Oriented özelliklerini mümkün olduğunca kullanmadan örnekler göstermeye çalışacağım. Kod parçalarını bilgisayarınızda yazıp çalıştırmayı denerseniz bilgiler daha kalıcı olacaktır.
+
+Ardından da abartılı hikayelerle Object Oriented mantığını anlatmaya çalışacağım. Eğlenceli olacağını tahmin ediyorum.
+
+Birkaç önbilgi:
+
+* Dosyaları ClassIsmi.java uzantılı dosyalara yazıyoruz. Dosyaların ilk harfi büyük ve içindeki Class ile aynı isimde olmak zorunda.
+* Syntaxı hemen hemen aynı. Commentler //
+ve /\* \*/ ile yapılıyor.
+* int, float ,double, long, char, byte, String, boolean (true/false); array olarak da int[], float[], ... , String[] gibi yapıları mevcut.
+* include yerine import kullanılıyor.
+* Netbeans ile yeni bir proje açtığınızda aynı klasörde olan dosyaların başına package yazılarak bunların bir pakette olduğu belirtiliyor, şu  * aşamada çok da önemli değil. Eğer kodları yapıştıracak olursanız bu package'ın altına yapıştırmaya özen gösterin.
+* Fonksiyonlar artık method ismini alıyor.

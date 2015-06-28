@@ -1,0 +1,258 @@
+# Java ile Prosedürel (C tarzı) programlama
+
+    public class Ornek1 {
+        public static void main(String[] args){
+    	    // kodumuzu buraya yazacağız.
+    	}
+    }
+
+Yukarıda yazdığım kod bir kalıptır, her programda aynen yazılır. Ornek1 yerine kendi istediğiniz bir Class ismini, commentli bölgeye de kodunuzu yazarsınız.
+
+
+## Ekrana Yazı Yazdırmak
+
+Java'da ekrana yazı yazdırmak için
+
+    cout << "Merhaba Dunya" << endl;
+
+yerine
+
+    System.out.println("Merhaba Dunya");
+
+yazmamız gerekiyor:
+
+    public class Merhaba {
+        public static void main(String[] args){
+    	    System.out.println("Merhaba Dunya");
+    	}
+    }
+
+Eğer yazdıktan sonra yeni satıra geçmesini istemiyorsak (<< endl; koymamak gibi) println yerine print kullanmamız yeterli olacaktır.
+
+
+C++'da << ile metinleri ardı ardına ekleyebiliyoruz. Böyle bir özellik Java'da da + ile mevcuttur. Örneğin şöyle bir println örneği olsun:
+
+    System.out.println("Merhaba" + " Dunya, " + "bugun " + 12 + " Şubat");
+
+
+Gördüğünüz üzere hem metinleri, hem de sayıları yan yana ekleyebiliyoruz. Bu hemen her tür için geçerlidir. Yani float, double, char vs. türleri de bu şekilde yan yana ekleyebilirsiniz.
+Ayrıca Java'da printf denilen başka bir metod mevcuttur. Bu metod ise iç içe geçmiş değişkenleri kolaylıkla bastırabilmenize yarar. Örneğin:
+
+    System.out.println(13+"."+2+"."+2010);
+
+yazmak sürekli + ve "." girmek sebebiyle zahmetli olabilir. Bunun yerine printf'i kullanabilirsiniz:
+
+    System.out.printf("%d.%d.%d", 13, 2, 2010);
+
+Böylelikle çok daha sade ve düzenli bir görünüm elde etmiş olursunuz, kafanız karışmaz.
+
+## Değişkenler
+
+C++'dakinin hemen hemen aynılarıdır. Örnekte çeşitli değişken tanımlamaları mevcuttur:
+
+
+    public class Ornek2
+            public static void main(String[] args){
+                int b=3, a=16, s;
+                float  y;
+                String isim = "Emre";
+                c = (float)a / b;
+
+                System.out.printf("%s bölme işlemi yaptı: %d / %d = %f", isim, a, b, c);
+        }
+    }
+
+
+Çıktısı:
+
+    Emre bölme işlemi yaptı: 16/3=5.33333
+
+Dikkat ettiyseniz String değişken için %s, int için %d, float için %f kullanılmış. Bu kurala dikkat etmeniz gerekiyor.
+
+    String => %s
+    int => %d
+    float, double => %f
+    char => %c
+
+
+Ayrıca ondalıklı haneyi de %.2f demek suretiyle belirleyebiliyorsunuz. Böylelikle 5.33333333 yerine 5.33 yazıyor. Yani noktadan sonra 2 hane.
+
+
+## Diziler (Arrayler)
+
+    // C++
+    int array[4];
+
+    // Java
+    int[] array = new int[4];
+
+Bir array tanımlamanın kalıbı C++ ve Java için yukarıdaki gibidir. Yani aşağıdaki kalıbı kullanmaktayız:
+
+    tür[] isim = new tür[boyut];
+
+Sonrasında diziye değer atamak isterseniz
+
+    array[0] = 35;
+    array[1] = 12;
+    array[2] = 23;
+    array[3] = 6;
+
+
+şeklinde atama yapabilirsiniz. Tahmin edeceğiniz üzere array[4] diyemiyorum çünkü array'in 4 int alabilecek kapasitesi var.
+
+
+Diğer bir array tanımlama yöntemi ise şöyle:
+
+    String[] isimler = {"Emre", "Caner", "Cengiz", "Remzi"}
+
+    // Aşağıdaki  iki tanımlama eşdeğer.
+    int[] yaslar = {10,11,12,13};
+    int[] yaslar = new int[] {10,11,12,13};
+
+Ayrıca arraylerin boyutunu array.length diyerek öğrenebilirsiniz. Örneğin:
+
+    for (i=0; i < yaslar.length; i++)
+
+## Döngüler
+
+Java'da döngüler C++ ile son derece benzerlik gösteriyor.
+
+### While Döngüsü
+
+Kod örneği:
+
+    int i = 0;
+    while (i<4){
+        System.out.println(isimler[i]);
+        i++;
+    }
+
+
+Çıktısı:
+
+    Emre
+    Caner
+    Cengiz
+    Remzi
+
+### For Döngüsü
+
+Kod Örneği:
+
+    for (i=0; i < 4; i++){
+        System.out.printf("%s (%d)", isimler[i], yaslar[i]);
+    }
+
+Çıktısı:
+
+    Emre - 10
+    Caner - 11
+    Cengiz - 12
+    Remzi - 13
+
+### Do While Döngüsü
+
+Kod Örneği:
+
+    i=0;
+    do {
+        System.out.printf("%d - %s", i+1, isimler[i]);
+        i++;
+    } while (i < 4);
+
+
+Çıktısı:
+
+    1 - Emre
+    2 - Caner
+    3 - Cengiz
+    4 - Remzi
+
+## Örnek Program
+
+İki tamsayı dizinin değerlerini karşılıklı olarak toplayıp ekrana bastıran bir kod yazalım.
+
+    public class ArrayTopla {
+        public static void main(String[] args){
+                int array1[] = {1,3,5,7,9};
+                int array2[] = {2,4,6,8,10};
+                int toplam[] = new int[5];
+                int i;
+
+                for (i=0;i<5;i++){
+                        toplam[i] = array1[i] + array2[i];
+                    }
+
+                for (i=0; i<5; i++){
+                        System.out.println(i + "-" + toplam[i]);
+                    }
+            }
+    }
+
+
+Çıktısı:
+
+    0-3
+    1-7
+    2-11
+    3-15
+    4-19
+
+
+## Metodlar (Fonksiyonlar)
+
+
+Yazının başında belirttiğim gibi şimdilik mümkün olduğunca Object Oriented kavramından kaçmaya çalışacağımız için metodları da static metod olarak tanımlayacağım. Buradaki static'in anlamı C++'daki static'ten farklı. Java'da bir statik metod, içinde bulunduğu Class'tan yeni bir nesne türetmeden (new ClassIsmı() demeden) kendisine ulaşılabilen metoddur. main de bir statik metoddur.
+
+
+Ayrıca metodları hangi sırayla (main'in üstüne/altına) yazacağınız önemli değildir. Yeter ki class { } parantezlerinin içerisinde olsun.
+
+### Örnek 1
+
+
+    public class MetodOrnek {
+        public static void main(String[] args){
+                int a, b, c;
+                a = 3;
+                b = 7;
+
+                c = topla(a, b);
+                System.out.printf("%d + %d = %d\n", a, b, c);
+        }
+
+        public static int topla(int x, int y){
+                return x+y;
+        }
+    }
+
+
+Çıktısı:
+
+    3 + 7 = 10
+
+### Örnek 2
+
+    public class MetodOrnek2 {
+        public static void main(String[] args){
+                System.out.printf("%d! = %d\n", 5, factorial(5));
+                System.out.printf("9/5 = %.2f\n", bol(9,5) );
+        }
+
+        public static float bol(int x, int y){
+                return (float)x/y;
+        }
+
+        public static int factorial(int n){
+                int product = 1;
+                while (n > 1){
+                        product *= n;
+                        n--;
+                }
+                return product;
+        }
+    }
+
+Çıktısı:
+
+    5! = 120
+    9/5 = 1.80
